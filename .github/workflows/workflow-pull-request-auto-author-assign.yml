@@ -1,0 +1,14 @@
+name: 'Auto Author Assign'
+
+on:
+  pull_request
+
+permissions:
+  pull-requests: write
+
+jobs:
+  assign-author:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set assignee
+        uses: toshimaru/auto-author-assign@v1.4.0

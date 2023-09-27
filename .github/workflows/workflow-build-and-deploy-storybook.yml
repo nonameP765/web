@@ -1,0 +1,53 @@
+name: build project and deploy storybook
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: false
+        type: string
+        default: main
+
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: true
+
+    outputs:
+      url:
+        description: 'Deployed storybook url (by commit)'
+        value: ${{ jobs.build-and-deploy-to-cloudflare-pages.outputs.url }}
+
+      id:
+        description: 'Deployed storybook id (by commit)'
+        value: ${{ jobs.build-and-deploy-to-cloudflare-pages.outputs.id }}
+
+jobs:
+  build-and-deploy-to-cloudflare-pages:
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy-to-cloudflare-pages.outputs.url }}
+      id: ${{ steps.deploy-to-cloudflare-pages.outputs.id }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: ./.github/actions/setup-node
+        with:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: yarn build-storybook
+        env:
+          APP_ENV: ${{ inputs.app_env }}
+
+      - name: Deploy cloudFlare pages
+        uses: cloudflare/pages-action@1
+        id: deploy-to-cloudflare-pages
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 3b55f14321802b7d4555d05e3905cf6b
+          projectName: web-storybook
+          branch: ${{ inputs.branch }}
+          directory: storybook-static
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

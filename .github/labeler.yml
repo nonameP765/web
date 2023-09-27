@@ -1,0 +1,6 @@
+feature:
+  - lib/**/*
+  - app/**/*
+  - public/**/*
+⚙️ policy:
+  - .github/**/*

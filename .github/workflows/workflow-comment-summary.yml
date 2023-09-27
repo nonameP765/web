@@ -1,0 +1,39 @@
+name: comment summary
+
+on:
+  workflow_call:
+    inputs:
+      commit_ref:
+        required: false
+        type: string
+        default: ${{ github.head_ref || github.ref }}
+
+      commit_sha:
+        required: false
+        type: string
+        default: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      storybook-deploy-url:
+        required: true
+        type: string
+
+      coverage-deploy-url:
+        required: true
+        type: string
+
+jobs:
+  comment-deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Leave comment on pr
+        uses: phulsechinmay/rewritable-pr-comment@v0.3.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+            # Workflow summary
+
+            | Service | URL |
+            |:- |:- |
+            | Storybook Deployment Url | ${{ inputs.storybook-deploy-url || '' }} |
+            | Coverage Deployment Url | ${{ inputs.coverage-deploy-url || '' }} |
