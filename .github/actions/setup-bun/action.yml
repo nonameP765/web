@@ -20,5 +20,5 @@ runs:
         node-version: '20'
     
     - name: Install dependencies
-      run: bun install
+      run: bun install --frozen-lockfile
       shell: bash
