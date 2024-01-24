@@ -16,7 +16,6 @@ const styles = stylex.create({
   button: {
     appearance: 'none',
     backgroundColor: 'red',
-    border: 'none',
     borderRadius: 4,
     color: '#000',
     cursor: 'pointer',
@@ -30,17 +29,6 @@ const styles = stylex.create({
     transition: 'all 0.2s ease-in-out',
     userSelect: 'none',
     verticalAlign: 'middle',
-    whiteSpace: 'nowrap',
-    ':hover': {
-      backgroundColor: '#f5f5f5'
-    },
-    ':focus': {
-      outline: 'none'
-    },
-    ':disabled': {
-      backgroundColor: '#f5f5f5',
-      color: '#999',
-      cursor: 'not-allowed'
-    }
+    whiteSpace: 'nowrap'
   }
 });

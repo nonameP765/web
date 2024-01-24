@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'stylex'],
+  plugins: ['@typescript-eslint', '@stylexjs'],
   extends: [
     'airbnb',
     'plugin:import/errors',
@@ -40,6 +40,6 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-param-reassign': 0,
     'jsx-a11y/no-static-element-interactions': 0,
-    "stylex/valid-styles": "error"
+    "@stylexjs/valid-styles": "error"
   }
 };
