@@ -20,8 +20,7 @@ jobs:
 
   comment-on-pr:
     if: ${{ always() }}
-    needs: [build-and-deploy-storybook, build-and-deploy-coverage]
+    needs: [build-and-deploy-storybook]
     uses: ./.github/workflows/workflow-comment-summary.yml
     with:
       storybook-deploy-url: ${{ needs.build-and-deploy-storybook.outputs.url }}
-      coverage-deploy-url: ${{ needs.build-and-deploy-coverage.outputs.url }}
