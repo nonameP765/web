@@ -15,6 +15,7 @@
     "vercel": "vercel"
   },
   "dependencies": {
+    "@stylexjs/eslint-plugin": "^0.4.1",
     "@stylexjs/stylex": "^0.4.1",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
