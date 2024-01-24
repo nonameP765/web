@@ -25,17 +25,11 @@ const config: StorybookConfig = {
     }
     return config;
   },
-  babel: async (options) => ({
-    plugins: [[
-      '@stylexjs/babel-plugin',
-      {
-        dev: process.env.NODE_ENV === 'development',
-        runtimeInjection: false,
-        genConditionalClasses: true,
-        treeshakeCompensation: true,
-      },
-    ]],
-  }),
+  babel: async (options) => {
+    const babelConfig = require("../.babelrc.js");
+
+    return { ...options, ...babelConfig };
+  },
 };
 export default config;
 
