@@ -13,16 +13,12 @@ jobs:
   build-and-deploy-preview:
     needs: lint
     uses: ./.github/workflows/workflow-build-and-deploy-preview.yml
-    with:
-      branch: ${{ github.head_ref }}
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
   build-and-deploy-storybook:
     needs: lint
-    uses: ./.github/workflows/workflow-build-and-deploy-storybook.yml
-    with:
-      branch: ${{ github.head_ref }}
+    uses: ./.github/workflows/workflow-build-and-deploy-storybook-preview.yml
     secrets:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
