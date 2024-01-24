@@ -25,15 +25,15 @@ jobs:
       - name: Setup node
         uses: ./.github/actions/setup-bun
       - name: Pull Vercel Environment Information
-        run: yarn vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: bun vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: bun vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
         id: deploy-to-vercel
-        run: DEPLOYMENT_URL=$(yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --regions icn1) && echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
+        run: DEPLOYMENT_URL=$(bun vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --regions icn1) && echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
       - name: Set Branch Name for URL
         id: set-branch-name
         run: |
           BRANCH_NAME=$(echo ${GITHUB_HEAD_REF:-$(git symbolic-ref --short HEAD)} | tr '[:upper:]' '[:lower:]' | sed -e 's/[^[:alnum:]-]/-/g' | cut -c 1-50) && echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
       - name: Alias Preview Url
-        run: yarn vercel alias --token=${{ secrets.VERCEL_TOKEN }} set "${{ steps.deploy-to-vercel.outputs.DEPLOYMENT_URL }}" "${{ steps.set-branch-name.outputs.BRANCH_NAME }}-nonamep765-web.vercel.app"
+        run: bun vercel alias --token=${{ secrets.VERCEL_TOKEN }} set "${{ steps.deploy-to-vercel.outputs.DEPLOYMENT_URL }}" "${{ steps.set-branch-name.outputs.BRANCH_NAME }}-nonamep765-web.vercel.app"

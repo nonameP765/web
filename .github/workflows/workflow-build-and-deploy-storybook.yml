@@ -18,8 +18,8 @@ jobs:
       - name: Setup node
         uses: ./.github/actions/setup-bun
       - name: Pull Vercel Environment Information
-        run: yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: bun vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Storybook Artifacts
-        run: yarn build-storybook
+        run: bun build-storybook
       - name: Deploy Storybook Artifacts to Vercel
-        run: yarn vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --regions icn1
+        run: bun vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --regions icn1

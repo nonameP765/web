@@ -1,7 +1,6 @@
 name: lint check
 
-on:
-  workflow_call
+on: workflow_call
 
 jobs:
   lint:
@@ -14,4 +13,4 @@ jobs:
         uses: ./.github/actions/setup-bun
 
       - name: Run Lint
-        run: yarn lint
+        run: bun lint

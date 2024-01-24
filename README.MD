@@ -22,10 +22,10 @@ yarn install
 
 ```bash
 // 웹
-yarn dev
+bun run dev
 
 // 스토리북
-yarn storybook
+bun run storybook
 
 ## CD
 
