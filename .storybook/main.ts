@@ -24,7 +24,12 @@ const config: StorybookConfig = {
       config.resolve.plugins = [new TsconfigPathsPlugin()];
     }
     return config;
-  }
+  },
+  babel: async (options) => {
+    const babelConfig = require("../.babelrc.js");
+
+    return { ...options, ...babelConfig };
+  },
 };
 export default config;
 

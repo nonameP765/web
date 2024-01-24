@@ -1,8 +1,8 @@
-name: build storybook and deploy
+name: build production and deploy
 
 env:
   VERCEL_ORG_ID: 2ui8Shmn5T5cV4g2ftdClMol
-  VERCEL_PROJECT_ID: prj_X4CMVtNZggS7o95Iey4AWLkX1oH7
+  VERCEL_PROJECT_ID: prj_eG0t2rI3ZtPIQAq8HGz45FA3qS59
   APP_ENV: production
 
 on:
@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/actions/setup-bun
       - name: Pull Vercel Environment Information
         run: bun vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Build Storybook Artifacts
-        run: bun build-storybook
-      - name: Deploy Storybook Artifacts to Vercel
-        run: bun vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --regions icn1
+      - name: Build Project Artifacts
+        run: bun vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: bun vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --regions icn1

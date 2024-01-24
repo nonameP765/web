@@ -13,11 +13,11 @@ on:
         type: string
         default: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      storybook-deploy-url:
+      preview-deploy-url:
         required: true
         type: string
 
-      coverage-deploy-url:
+      storybook-deploy-url:
         required: true
         type: string
 
@@ -35,5 +35,5 @@ jobs:
 
             | Service | URL |
             |:- |:- |
+            | Preview Deployment Url | ${{ inputs.preview-deploy-url || '' }} |
             | Storybook Deployment Url | ${{ inputs.storybook-deploy-url || '' }} |
-            | Coverage Deployment Url | ${{ inputs.coverage-deploy-url || '' }} |

@@ -4,14 +4,13 @@
 
 ## 기술스택
 
-- NextJS 13
+- NextJS 14
   - with App Router
-- Styled Components
+- StyleX
 - Typescript
 - ESLint, Prettier
 - Storybook
-- vitest (React Testing Library)
-- yarn berry
+- bun
 
 ## 준비
 
@@ -23,22 +22,17 @@ yarn install
 
 ```bash
 // 웹
-yarn dev
+bun dev
 
 // 스토리북
-yarn storybook
-
-// 테스트
-yarn test
-
-// 커버리지 생성
-yarn coverage
-```
+bun storybook
 
 ## CD
 
 - Vercel
   - page
-- Cloudflare Pages
   - storybook
-  - coverage
+
+## Known Issues
+
+- storybook 빌드 시 스타일이 사라지는 이슈 - 로컬에서 잘 동작하므로 storybook과 stylex간 지원이 강화된다면 반영 예정

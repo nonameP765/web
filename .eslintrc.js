@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', '@stylexjs'],
   extends: [
     'airbnb',
     'plugin:import/errors',
@@ -8,7 +8,9 @@ module.exports = {
 
     'plugin:@typescript-eslint/recommended',
     'plugin:storybook/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+
+    'plugin:@next/next/recommended'
   ],
   rules: {
     'linebreak-style': 0,
@@ -18,7 +20,6 @@ module.exports = {
     'no-use-before-define': 0,
     'import/no-unresolved': 0,
     'import/no-extraneous-dependencies': 0,
-    // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
     'no-shadow': 0,
     'react/prop-types': 0,
     'react/jsx-filename-extension': [
@@ -38,6 +39,7 @@ module.exports = {
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
     'class-methods-use-this': 0,
     'no-param-reassign': 0,
-    'jsx-a11y/no-static-element-interactions': 0
+    'jsx-a11y/no-static-element-interactions': 0,
+    "@stylexjs/valid-styles": "error"
   }
 };

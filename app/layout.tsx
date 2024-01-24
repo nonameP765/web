@@ -1,6 +1,4 @@
 import '@lib/styles/globals.css';
-import StyledComponentsRegistry from '@lib/registry';
-import { HackleProvider } from '@lib/providers/Hackle';
 import React from 'react';
 
 export const metadata = {
@@ -11,11 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body>
-        <StyledComponentsRegistry>
-          <HackleProvider>{children}</HackleProvider>
-        </StyledComponentsRegistry>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

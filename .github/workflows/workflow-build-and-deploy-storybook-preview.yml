@@ -1,0 +1,35 @@
+name: build storybook preview and deploy
+
+env:
+  VERCEL_ORG_ID: 2ui8Shmn5T5cV4g2ftdClMol
+  VERCEL_PROJECT_ID: prj_X4CMVtNZggS7o95Iey4AWLkX1oH7
+  APP_ENV: development
+
+on:
+  workflow_call:
+    secrets:
+      VERCEL_TOKEN:
+        required: true
+
+    outputs:
+      url:
+        description: 'Storybook preview url (by commit)'
+        value: ${{ jobs.build-and-deploy-to-vercel.outputs.DEPLOYMENT_URL }}
+
+jobs:
+  build-and-deploy-to-vercel:
+    runs-on: ubuntu-latest
+    outputs:
+      DEPLOYMENT_URL: ${{ steps.deploy-to-vercel.outputs.DEPLOYMENT_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup bun
+        uses: ./.github/actions/setup-bun
+      - name: Pull Vercel Environment Information
+        run: bun vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Storybook Artifacts
+        run: bun build-storybook
+      - name: Deploy Storybook Artifacts to Vercel
+        id: deploy-to-vercel
+        run: DEPLOYMENT_URL=$(bun vercel deploy ./storybook-static --token=${{ secrets.VERCEL_TOKEN }} --regions icn1) && echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
