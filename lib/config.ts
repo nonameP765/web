@@ -5,7 +5,3 @@ export const APP_ENV: Env =
 
 export const isProduction = APP_ENV === 'production';
 export const isDev = APP_ENV === 'development';
-
-export const hackleKey = isProduction
-  ? 'x'
-  : 'x';

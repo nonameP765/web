@@ -4,14 +4,13 @@
 
 ## 기술스택
 
-- NextJS 13
+- NextJS 14
   - with App Router
-- Styled Components
+- StyleX
 - Typescript
 - ESLint, Prettier
 - Storybook
-- vitest (React Testing Library)
-- yarn berry
+- bun
 
 ## 준비
 

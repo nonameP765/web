@@ -37,13 +37,5 @@ next-env.d.ts
 # vscode
 .vscode
 
-# zero-install
-.yarn/*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-
+# jetbrains
 .idea
