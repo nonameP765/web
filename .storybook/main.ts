@@ -24,7 +24,18 @@ const config: StorybookConfig = {
       config.resolve.plugins = [new TsconfigPathsPlugin()];
     }
     return config;
-  }
+  },
+  babel: async (options) => ({
+    plugins: [[
+      '@stylexjs/babel-plugin',
+      {
+        dev: process.env.NODE_ENV === 'development',
+        runtimeInjection: false,
+        genConditionalClasses: true,
+        treeshakeCompensation: true,
+      },
+    ]],
+  }),
 };
 export default config;
 
