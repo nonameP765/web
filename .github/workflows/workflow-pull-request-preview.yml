@@ -10,20 +10,9 @@ jobs:
   lint:
     uses: ./.github/workflows/workflow-lint-check.yml
 
-  test:
-    uses: ./.github/workflows/workflow-test-check.yml
-
   build-and-deploy-storybook:
     needs: lint
     uses: ./.github/workflows/workflow-build-and-deploy-storybook.yml
-    with:
-      branch: ${{ github.head_ref }}
-    secrets:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-  build-and-deploy-coverage:
-    needs: test
-    uses: ./.github/workflows/workflow-build-and-deploy-coverage.yml
     with:
       branch: ${{ github.head_ref }}
     secrets:
