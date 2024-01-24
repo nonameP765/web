@@ -10,6 +10,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build-and-deploy-production:
+    uses: ./.github/workflows/workflow-build-and-deploy-production.yml
+    secrets:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
   build-and-deploy-storybook:
     uses: ./.github/workflows/workflow-build-and-deploy-storybook.yml
     secrets:
