@@ -16,7 +16,7 @@ on:
 
 jobs:
   build-and-deploy-to-vercel:
-    runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-latest
     outputs:
       DEPLOYMENT_URL: ${{ steps.deploy-to-vercel.outputs.DEPLOYMENT_URL }}
     steps:
