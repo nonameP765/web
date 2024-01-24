@@ -10,17 +10,26 @@ jobs:
   lint:
     uses: ./.github/workflows/workflow-lint-check.yml
 
+  build-and-deploy-preview:
+    needs: lint
+    uses: ./.github/workflows/workflow-build-and-deploy-preview.yml
+    with:
+      branch: ${{ github.head_ref }}
+    secrets:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
   build-and-deploy-storybook:
     needs: lint
     uses: ./.github/workflows/workflow-build-and-deploy-storybook.yml
     with:
       branch: ${{ github.head_ref }}
     secrets:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
   comment-on-pr:
     if: ${{ always() }}
-    needs: [build-and-deploy-storybook]
+    needs: [build-and-deploy-preview, build-and-deploy-storybook]
     uses: ./.github/workflows/workflow-comment-summary.yml
     with:
+      preview-deploy-url: ${{ needs.build-and-deploy-preview.outputs.url }}
       storybook-deploy-url: ${{ needs.build-and-deploy-storybook.outputs.url }}

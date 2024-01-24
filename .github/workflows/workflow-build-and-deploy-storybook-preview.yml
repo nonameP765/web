@@ -1,0 +1,46 @@
+name: build storybook preview and deploy
+
+env:
+  VERCEL_PROJECT_ID: prj_X4CMVtNZggS7o95Iey4AWLkX1oH7
+  APP_ENV: development
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: false
+        type: string
+        default: main
+
+    secrets:
+      VERCEL_TOKEN:
+        required: true
+
+    outputs:
+      url:
+        description: 'Storybook preview url (by commit)'
+        value: ${{ jobs.build-and-deploy-to-vercel.outputs.DEPLOYMENT_URL }}
+
+jobs:
+  build-and-deploy-to-vercel:
+    runs-on: [self-hosted, linux, X64]
+    outputs:
+      DEPLOYMENT_URL: ${{ steps.deploy-to-vercel.outputs.DEPLOYMENT_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: ./.github/actions/setup-bun
+      - name: Pull Vercel Environment Information
+        run: yarn vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Storybook Artifacts
+        run: yarn build-storybook
+      - name: Deploy Storybook Artifacts to Vercel
+        id: deploy-to-vercel
+        run: DEPLOYMENT_URL=$(yarn vercel deploy ./storybook-static --token=${{ secrets.VERCEL_TOKEN }} --regions icn1) && echo "DEPLOYMENT_URL=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
+      - name: Set Branch Name for URL
+        id: set-branch-name
+        run: |
+          BRANCH_NAME=$(echo ${GITHUB_HEAD_REF:-$(git symbolic-ref --short HEAD)} | tr '[:upper:]' '[:lower:]' | sed -e 's/[^[:alnum:]-]/-/g' | cut -c 1-50) && echo "BRANCH_NAME=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+      - name: Alias Preview Url
+        run: yarn vercel alias --token=${{ secrets.VERCEL_TOKEN }} set "${{ steps.deploy-to-vercel.outputs.DEPLOYMENT_URL }}" "${{ steps.set-branch-name.outputs.BRANCH_NAME }}-nonamep765-web-storybook.vercel.app"

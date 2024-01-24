@@ -1,0 +1,15 @@
+name: Setup Bun
+
+description: Setup Bun
+
+on:
+  workflow_call:
+    inputs:
+      NPM_AUTH_TOKEN:
+        required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
