@@ -1,6 +1,7 @@
 name: build storybook preview and deploy
 
 env:
+  VERCEL_ORG_ID: 2ui8Shmn5T5cV4g2ftdClMol
   VERCEL_PROJECT_ID: prj_X4CMVtNZggS7o95Iey4AWLkX1oH7
   APP_ENV: development
 
