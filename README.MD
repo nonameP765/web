@@ -22,13 +22,17 @@ yarn install
 
 ```bash
 // 웹
-bun run dev
+bun dev
 
 // 스토리북
-bun run storybook
+bun storybook
 
 ## CD
 
 - Vercel
   - page
   - storybook
+
+## Known Issues
+
+- storybook 빌드 시 스타일이 사라지는 이슈 - 로컬에서 잘 동작하므로 storybook과 stylex간 지원이 강화된다면 반영 예정
