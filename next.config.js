@@ -6,6 +6,7 @@ const APP_ENV = process.env.APP_ENV ?? 'local';
 
 const nextConfig = {
   reactStrictMode: false,
+  transpilePackages: ['string-width'],
   env: {
     APP_ENV
   }
